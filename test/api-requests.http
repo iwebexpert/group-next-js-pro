@@ -1,0 +1,8 @@
+### Получение списка рецептов
+GET http://localhost:3000/api/recipes
+
+### Получение конкретного рецепта по ID
+GET http://localhost:3000/api/recipes/1
+
+### Получение конкретного рецепта по ID с ошибкой
+GET http://localhost:3000/api/recipes/10

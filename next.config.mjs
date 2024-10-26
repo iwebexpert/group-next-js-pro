@@ -1,4 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+await import("./src/libs/check.js")
 
-export default nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  env: {
+    TOKEN: process.env.TOKEN,
+  },
+}
+
+export default nextConfig
