@@ -1,14 +1,31 @@
+import { prisma } from "@/libs/prisma"
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  const recipes = [
-    { id: 1, title: "Спагетти Карбонара", description: "Классическая итальянская паста.", image: "/images/carbonara.jpg" },
-    { id: 2, title: "Пицца Маргарита", description: "Свежая пицца с помидорами, базиликом и моцареллой.", image: "/images/pizza.jpg" },
-    { id: 3, title: "Салат Цезарь", description: "Салат с салатом романо, гренками и соусом Цезарь.", image: "/images/salad.jpg" },
-  ]
-
-  // Добавляем задержку в 3 секунды
-  // await new Promise((resolve) => setTimeout(resolve, 3000))
+  const recipes = await prisma.recipe.findMany({
+    include: { ingredients: true },
+  })
 
   return NextResponse.json(recipes)
+}
+
+export async function POST(req: Request) {
+  const { title, description, imageUrl, ingredients } = await req.json()
+
+  try {
+    const newRecipe = await prisma.recipe.create({
+      data: {
+        title,
+        description,
+        imageUrl,
+        ingredients: {
+          create: ingredients,
+        },
+      },
+    })
+
+    return NextResponse.json(newRecipe, { status: 201 })
+  } catch {
+    return NextResponse.json({ error: "Не удалось создать рецепт" }, { status: 500 })
+  }
 }

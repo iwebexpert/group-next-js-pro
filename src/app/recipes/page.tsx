@@ -1,4 +1,5 @@
 import RecipeCard from "@/components/recipes/RecipeCard"
+import type { Recipe } from "@prisma/client"
 import type { Metadata } from "next"
 // import Image from "next/image"
 
@@ -50,7 +51,7 @@ export default async function RecipesPage() {
             id={recipe.id}
             title={recipe.title}
             description={recipe.description}
-            image={recipe.image}
+            image={recipe.imageUrl}
           />
         ))}
       </ul>

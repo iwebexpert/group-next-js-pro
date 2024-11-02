@@ -2,6 +2,7 @@
 
 import RecipeCard from "@/components/recipes/RecipeCard"
 import React, { useEffect, useState } from "react"
+import type { Recipe } from "@prisma/client"
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -49,7 +50,7 @@ export default function Recipes() {
             id={recipe.id}
             title={recipe.title}
             description={recipe.description}
-            image={recipe.image}
+            image={recipe.imageUrl}
           />
         ))}
       </ul>

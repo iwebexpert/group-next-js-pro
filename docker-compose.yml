@@ -1,0 +1,28 @@
+# Use postgres/example user/password credentials
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    # set shared memory limit when using docker-compose
+    shm_size: 512mb
+    ports:
+     - 5432:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: test12345678
+      POSTGRES_DB: main
+    volumes:
+     - postgres_recipes_app_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_recipes_app_data:
+    driver: local

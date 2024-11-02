@@ -6,3 +6,63 @@ GET http://localhost:3000/api/recipes/1
 
 ### Получение конкретного рецепта по ID с ошибкой
 GET http://localhost:3000/api/recipes/10
+
+### Создание нового рецепта
+POST http://localhost:3000/api/recipes
+Content-Type: application/json
+
+{
+  "title": "Омлет",
+  "description": "Вкусный омлет с зеленью и сыром",
+  "imageUrl": "/images/omelette.jpg",
+  "ingredients": [
+    { "name": "Яйца", "amount": "3 шт" },
+    { "name": "Молоко", "amount": "50 мл" },
+    { "name": "Сыр", "amount": "50 г" }
+  ]
+}
+
+### Обновление рецепта по id (замените {id} на нужный id)
+PATCH http://localhost:3000/api/recipes/4
+Content-Type: application/json
+
+{
+  "title": "Омлет с сыром и зеленью",
+  "description": "Обновлённое описание рецепта омлета",
+  "imageUrl": "/images/omelette.jpg"
+}
+
+### Удаление рецепта по id (замените {id} на нужный id)
+DELETE http://localhost:3000/api/recipes/2
+
+### Получение списка рецептов (с ингридиентами и тегами)
+GET http://localhost:3000/api/recipes/with-tags
+
+# Для проверки домашнего задания
+### Получение списка всех ингредиентов
+GET http://localhost:3000/api/ingredients
+
+### Получение конкретного ингредиента по id (замените {id} на нужный id)
+GET http://localhost:3000/api/ingredients/{id}
+
+### Создание нового ингредиента
+POST http://localhost:3000/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "Лук",
+  "amount": "1 шт",
+  "recipeId": 1
+}
+
+### Обновление ингредиента по id (замените {id} на нужный id)
+PATCH http://localhost:3000/api/ingredients/{id}
+Content-Type: application/json
+
+{
+  "name": "Лук репчатый",
+  "amount": "2 шт"
+}
+
+### Удаление ингредиента по id (замените {id} на нужный id)
+DELETE http://localhost:3000/api/ingredients/{id}
