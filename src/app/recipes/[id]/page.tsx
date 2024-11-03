@@ -29,6 +29,7 @@ export default async function RecipesPage({ params }: { params: { id: string } }
           id={recipe.id}
           title={recipe.title}
           description={recipe.description}
+          showIngredientsBtn={true}
           image={recipe.imageUrl}
         />
       </ul>
