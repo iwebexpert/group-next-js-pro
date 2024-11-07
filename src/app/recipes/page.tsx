@@ -1,15 +1,6 @@
 import RecipeCard from "@/components/recipes/RecipeCard"
 import type { Recipe } from "@prisma/client"
 import type { Metadata } from "next"
-// import Image from "next/image"
-
-// interface Recipe {
-//   id: number
-//   title: string
-//   description: string
-//   image: string
-// }
-
 export const metadata: Metadata = {
   title: "Книга рецептов",
   description: "Книга рецептов. Делитесь любимыми рецептами и открывайте для себя новые",

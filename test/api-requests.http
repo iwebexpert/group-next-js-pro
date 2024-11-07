@@ -38,12 +38,12 @@ DELETE http://localhost:3000/api/recipes/2
 ### Получение списка рецептов (с ингридиентами и тегами)
 GET http://localhost:3000/api/recipes/with-tags
 
-# Для проверки домашнего задания
+# Для проверки домашнего задания 2
 ### Получение списка всех ингредиентов
 GET http://localhost:3000/api/ingredients
 
 ### Получение конкретного ингредиента по id (замените {id} на нужный id)
-GET http://localhost:3000/api/ingredients/{id}
+GET http://localhost:3000/api/ingredients/12
 
 ### Создание нового ингредиента
 POST http://localhost:3000/api/ingredients
@@ -56,7 +56,7 @@ Content-Type: application/json
 }
 
 ### Обновление ингредиента по id (замените {id} на нужный id)
-PATCH http://localhost:3000/api/ingredients/{id}
+PATCH http://localhost:3000/api/ingredients/13
 Content-Type: application/json
 
 {
@@ -65,4 +65,4 @@ Content-Type: application/json
 }
 
 ### Удаление ингредиента по id (замените {id} на нужный id)
-DELETE http://localhost:3000/api/ingredients/{id}
+DELETE http://localhost:3000/api/ingredients/13
