@@ -21,7 +21,7 @@ export default function RecipeCard({ id, title, description, image }: RecipeCard
   }
 
   return (
-    <li className="border p-4 rounded-lg shadow-lg">
+    <li className="border p-4 rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700">
       <Link href={`/recipes/${id}`}>
         <Image
           src={image}
@@ -30,15 +30,15 @@ export default function RecipeCard({ id, title, description, image }: RecipeCard
           alt={title}
           className="mb-4 rounded-lg"
         />
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-sm text-gray-700 mb-4">{description}</p>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+        <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">{description}</p>
       </Link>
       <button
         onClick={toggleLike}
         className="flex items-center space-x-2 mt-4"
       >
         {liked ? <SolidHeartIcon className="w-6 h-6 text-red-500" /> : <OutlineHeartIcon className="w-6 h-6 text-gray-500" />}
-        <span>{liked ? "Вы поставили лайк!" : "Поставить лайк"}</span>
+        <span className="text-gray-900 dark:text-gray-200">{liked ? "Вы поставили лайк!" : "Поставить лайк"}</span>
       </button>
     </li>
   )

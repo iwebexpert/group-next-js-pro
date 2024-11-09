@@ -2,16 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
+:root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+.dark {
+    --background: #0a0a0a;
+    --foreground: #ededed;
 }
 
 body {
@@ -20,8 +25,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.btn-primary {
+  @apply bg-primary dark:bg-blue-500 text-white font-semibold px-4 rounded-lg text-custom-size border-custom-width hover:bg-blue-500 hover:dark:bg-primary
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-} */
+}
