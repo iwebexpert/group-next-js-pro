@@ -1,10 +1,18 @@
 import type { Metadata } from "next"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "О нас",
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const session = await getServerSession()
+  // console.log(session)
+  if (!session) {
+    redirect("/auth/login?callbackUrl=/about")
+  }
+
   const classDynamic = `text-blue-${"400"}`
 
   return (
