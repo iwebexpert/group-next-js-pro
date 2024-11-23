@@ -1,48 +1,55 @@
 "use client"
 
 import RecipeCard from "@/components/recipes/RecipeCard"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import type { Recipe } from "@prisma/client"
+import { useQuery } from "@tanstack/react-query"
+import { fetchRecipes, NewRecipe } from "@/server/api/recipes"
+import RecipeForm from "./RecipeForm"
+import { useAddRecipeMutation } from "@/hooks/useAddRecipeMutation"
 
 export default function Recipes() {
-  const [recipes, setRecipes] = useState<Recipe[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
+  // const queryClient = useQueryClient()
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        setLoading(true)
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`)
-        if (!res.ok) {
-          throw new Error("404")
-        }
+  const {
+    data: recipes,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["recipes"],
+    queryFn: () => fetchRecipes(),
+  })
 
-        const data = await res.json()
-        setRecipes(data)
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setError(error.message)
-        }
-      } finally {
-        setLoading(false)
-      }
-    }
+  // const mutation = useMutation({
+  //   mutationFn: addNewRecipe,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["recipes"] })
+  //     toast.success("Рецепт добавлен!", { autoClose: 3000 })
+  //   },
+  //   onError: (err: Error) => {
+  //     toast.error(err.message || "Ошибка при добавлении рецепта", { autoClose: 3000 })
+  //   },
+  // })
 
-    fetchRecipes()
-  }, [])
+  const mutation = useAddRecipeMutation()
 
-  if (loading) {
+  if (isPending) {
     return <p className="text-center text-lg font-semibold">Загрузка</p>
   }
 
-  if (error) {
-    return <p className="text-center text-lg text-red-500">{error}</p>
+  if (isError) {
+    return <p className="text-center text-lg text-red-500">{error.message}</p>
+  }
+
+  const handleAddRecipe = async (data: NewRecipe) => {
+    mutation.mutate(data)
   }
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl mb-6">Рецепты</h1>
+      <RecipeForm onSubmit={handleAddRecipe} />
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((recipe: Recipe) => (
           <RecipeCard

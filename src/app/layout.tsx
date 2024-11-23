@@ -6,6 +6,9 @@ import MainMenu from "@/components/shared/MainMenu"
 import { ThemeModeScript } from "flowbite-react"
 import Providers from "@/components/shared/Providers"
 
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -49,6 +52,7 @@ export default function RootLayout({
             © 2024 Все права защищены lorem
           </footer>
         </Providers>
+        <ToastContainer />
       </body>
     </html>
   )

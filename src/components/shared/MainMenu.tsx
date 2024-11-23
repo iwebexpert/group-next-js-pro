@@ -73,11 +73,18 @@ export default function MainMenu() {
           О нас
         </NavbarLink>
         <NavbarLink
-          href="/recipes"
+          href="/recipes-csr"
           as={Link}
-          active={pathname === "/recipes"}
+          active={pathname === "/recipes-csr"}
         >
           Рецепты
+        </NavbarLink>
+        <NavbarLink
+          href="/upload"
+          as={Link}
+          active={pathname === "/upload"}
+        >
+          Загрузить
         </NavbarLink>
       </NavbarCollapse>
     </Navbar>
