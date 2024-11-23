@@ -23,6 +23,13 @@ services:
     ports:
       - 8080:8080
 
+  mailcatcher:
+    image: sj26/mailcatcher
+    restart: unless-stopped
+    ports:
+      - 1025:1025
+      - 1080:1080
+
 volumes:
   postgres_recipes_app_data:
     driver: local

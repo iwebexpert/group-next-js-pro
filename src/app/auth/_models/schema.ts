@@ -6,3 +6,6 @@ export const passwordSchema = z.object({
 })
 
 export type PasswordSchemaType = z.infer<typeof passwordSchema>
+
+export const emailSchema = passwordSchema.omit({ password: true })
+export type EmailSchemaType = z.infer<typeof emailSchema>

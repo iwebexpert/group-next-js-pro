@@ -1,7 +1,11 @@
 import { passwordSchema } from "@/app/auth/_models/schema"
 import NextAuth, { AuthOptions } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+import EmailProvider from "next-auth/providers/email"
 import bcrypt from "bcryptjs"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { prisma } from "@/libs/prisma"
+import { mailOptions, transporter } from "./nodemailer"
 
 // const users = [
 //   { id: "1", name: "Anna", email: "test@example.local", password: "12345678" },
@@ -24,6 +28,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/auth/login",
   },
+  adapter: PrismaAdapter(prisma),
   providers: [
     Credentials({
       id: "credentials",
@@ -58,6 +63,38 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
+    EmailProvider({
+      server: {
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
+        },
+      },
+      from: process.env.SMTP_FROM,
+      async sendVerificationRequest(params) {
+        const { identifier, url } = params
+        const { host } = new URL(url)
+
+        if (process.env.NODE_ENV === "development") {
+          console.log(`Link ${identifier}: ${url}`)
+          return
+        }
+
+        const result = await transporter.sendMail({
+          ...mailOptions,
+          to: identifier,
+          subject: `Вход на сайт ${host}`,
+          text: text({ url, host }),
+        })
+
+        const failed = result.rejected.concat(result.pending).filter(Boolean)
+        if (failed.length) {
+          throw new Error(`Email не может быть отправлен`)
+        }
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -79,6 +116,10 @@ export const authOptions: AuthOptions = {
       return session
     },
   },
+}
+
+function text({ url, host }: { url: string; host: string }) {
+  return `Ссылка для входа на сайт ${host}\n${url}\n\n`
 }
 
 export default NextAuth(authOptions)
