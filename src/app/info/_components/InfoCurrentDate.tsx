@@ -2,7 +2,9 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Button } from "flowbite-react"
-import moment from "moment"
+// import moment from "moment"
+import dayjs from "dayjs"
+
 import React, { useState } from "react"
 import { toast } from "react-toastify"
 
@@ -23,7 +25,7 @@ export default function InfoCurrentDate() {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ["current-date"],
     queryFn: () => fetchCurrentDate(),
-    select: (data) => moment(data).format("DD.MM.YYYY HH:mm:ss"),
+    select: (data) => dayjs(data).format("DD.MM.YYYY HH:mm:ss"),
     retry: 3,
     retryDelay: 1000,
     // enabled: counter > 2,

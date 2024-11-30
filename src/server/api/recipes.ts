@@ -13,6 +13,15 @@ export async function fetchRecipes() {
   return await res.json()
 }
 
+export async function fetchSearchRecipes(query: string = "") {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes/search?query=${query}`)
+  if (!res.ok) {
+    throw new Error("404")
+  }
+
+  return await res.json()
+}
+
 export async function addNewRecipe(newRecipe: NewRecipe) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, {
     method: "POST",
