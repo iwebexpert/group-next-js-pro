@@ -7,6 +7,7 @@ const nextConfig = {
   env: {
     TOKEN: process.env.TOKEN,
   },
+  output: "standalone",
 }
 
 export default NextBundleAnalyzer({

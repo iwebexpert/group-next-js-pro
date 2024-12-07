@@ -79,13 +79,13 @@ export default function MainMenu() {
         >
           Рецепты
         </NavbarLink>
-        <NavbarLink
+        {/* <NavbarLink
           href="/upload"
           as={Link}
           active={pathname === "/upload"}
         >
           Загрузить
-        </NavbarLink>
+        </NavbarLink> */}
       </NavbarCollapse>
     </Navbar>
   )
