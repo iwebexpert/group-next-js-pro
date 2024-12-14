@@ -11,6 +11,7 @@ import Providers from "@/components/shared/Providers"
 
 import dynamic from "next/dynamic"
 const TostifyDynamic = dynamic(() => import("@/components/shared/Tostify"), { ssr: true })
+const ScreenSizeOverlayDynamic = dynamic(() => import("screen-size-overlay").then((module) => module.ScreenSizeOverlay))
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -51,12 +52,11 @@ export default function RootLayout({
           </header>
 
           <main className="flex-grow p-4">{children}</main>
-          <footer className="bg-white dark:bg-gray-800 text-gray-500 dark:text-white p-4 text-center text-balance">
-            © 2024 Все права защищены lorem
-          </footer>
+          <footer className="bg-white dark:bg-gray-800 text-gray-500 dark:text-white p-4 text-center text-balance">© 2024 Все права защищены</footer>
         </Providers>
         {/* <ToastContainer /> */}
         <TostifyDynamic />
+        {process.env.NODE_ENV === "development" && <ScreenSizeOverlayDynamic />}
       </body>
     </html>
   )

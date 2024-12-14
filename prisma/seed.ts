@@ -5,7 +5,8 @@ const recipes = [
   {
     title: "Спагетти Карбонара",
     description: "Классическая итальянская паста.",
-    imageUrl: "/images/carbonara.jpg",
+    // imageUrl: "/images/carbonara.jpg",
+    imageUrl: `${process.env.NEXT_PUBLIC_S3_URL}/images/carbonara.jpg`,
     ingredients: [
       { name: "Спагетти", amount: "200 г" },
       { name: "Яйца", amount: "2 шт" },
@@ -16,7 +17,8 @@ const recipes = [
   {
     title: "Пицца Маргарита",
     description: "Свежая пицца с помидорами, базиликом и моцареллой.",
-    imageUrl: "/images/pizza.jpg",
+    // imageUrl: "/images/pizza.jpg",
+    imageUrl: `${process.env.NEXT_PUBLIC_S3_URL}/images/pizza.jpg`,
     ingredients: [
       { name: "Тесто", amount: "1 шт" },
       { name: "Томаты", amount: "2 шт" },
@@ -27,7 +29,8 @@ const recipes = [
   {
     title: "Салат Цезарь",
     description: "Салат с салатом романо, гренками и соусом Цезарь.",
-    imageUrl: "/images/salad.jpg",
+    // imageUrl: "/images/salad.jpg",
+    imageUrl: `${process.env.NEXT_PUBLIC_S3_URL}/images/salad.jpg`,
     ingredients: [
       { name: "Салат романо", amount: "100 г" },
       { name: "Гренки", amount: "50 г" },

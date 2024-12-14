@@ -8,6 +8,15 @@ const nextConfig = {
     TOKEN: process.env.TOKEN,
   },
   output: "standalone",
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: process.env.NEXT_PUBLIC_S3_HOST,
+        pathname: `/${process.env.NEXT_PUBLIC_S3_BUCKET_ID}/images/**`,
+      },
+    ],
+  },
 }
 
 export default NextBundleAnalyzer({

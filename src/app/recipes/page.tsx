@@ -1,31 +1,28 @@
 import RecipeCard from "@/components/recipes/RecipeCard"
+import { prisma } from "@/libs/prisma"
 import type { Recipe } from "@prisma/client"
 import type { Metadata } from "next"
-// import Image from "next/image"
-
-// interface Recipe {
-//   id: number
-//   title: string
-//   description: string
-//   image: string
-// }
+import { notFound } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "Книга рецептов",
   description: "Книга рецептов. Делитесь любимыми рецептами и открывайте для себя новые",
+  keywords: "Рецепты, популярные блюда, любимые рецепты",
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
-async function fetchRecipes() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes`, { cache: "no-store" })
-  if (!res.ok) {
-    throw new Error("404")
-  }
-
-  return await res.json()
-}
+export const revalidate = 10
 
 export default async function RecipesPage() {
-  const recipes = await fetchRecipes()
+  // const recipes = await fetchRecipes()
+  const recipes = await prisma.recipe.findMany({
+    include: { ingredients: true },
+  })
+
+  if (!recipes) notFound()
   // console.log(recipes)
   return (
     <div className="container mx-auto p-4">
